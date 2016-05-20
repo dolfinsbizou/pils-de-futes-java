@@ -53,6 +53,17 @@ public class Controller {
         //ordre de jeu
         ordre = tcpGdOrdo.receptionEntier();
 
+        cave = new Cave(nbLignes, nbCol, configCave);
+        for (int i = 0; i < ordre - 1; i++) {
+            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1));
+        }
+        
+        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre));
+        
+        for (int i = 0; i < nbManutentionnaires - ordre; i++) {
+                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i));
+            }
+        
         //Initialisation modèles TODO
         while (true) {
             for (int i = 0; i < ordre - 1; i++) {
@@ -62,8 +73,9 @@ public class Controller {
             //PHASE TRAITEMENT
             String phraseDeJeu = "";
 
-            //ArrayList<Salle> sallesPotentielles = rechercheSalle(cave);
-            tcpGdOrdo.envoiChaine(phraseDeJeu);
+            for (char action : phraseDeJeu.toCharArray()) {
+			tcpGdOrdo.envoiCaractere(action);
+		}
 
             for (int i = 0; i < nbManutentionnaires - ordre; i++) {
                 tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
