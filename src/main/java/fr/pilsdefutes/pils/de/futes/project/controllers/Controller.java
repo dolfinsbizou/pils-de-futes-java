@@ -346,4 +346,65 @@ public class Controller {
             }
             return Mcoup.phrase;
     }
+    
+    private String retourALEscalier(Manutentionnaire m)
+    {
+        int c = 7;
+        String phrase="";
+        
+        int i = m.getX(), j = m.getY();
+        
+        while(c>7)
+        {
+            int nouvI = i, nouvJ = j;
+            int distActuelle = cave.getSalleAtXY(i, j).getDistanceEscalier();
+            for(int k = -1 ; k <= 1 ; k++)
+                for(int l = -1 ; l <= 1 ; l++)
+                {
+                    if(cave.isSalleAtXY(i+k, j+l))
+                        if(cave.getSalleAtXY(i+k, j+l).getDistanceEscalier() < distActuelle)
+                        {
+                            nouvI = i+k;
+                            nouvJ = j+l;
+                        }
+                }
+            
+            if(nouvI < i)
+            {
+                phrase+='O';
+                c--;
+            }
+            else if(nouvI > i)
+            {
+                phrase+='E';
+                c--;
+            }
+            
+            if(nouvJ < j)
+            {
+                if(c>0) phrase+='N';
+                c--;
+            }
+            else if(nouvJ > j)
+            {
+                if(c>0) phrase+='S';
+                c--;
+            }
+            
+            i = nouvI;
+            j = nouvJ;
+            
+            if(cave.getSalleAtXY(i, j).getDistanceEscalier() == 0)
+            {
+                while(m.getNbBouteillesDansSac() < 10 && c>0)
+                {
+                    phrase+='R';
+                    c--;
+                }
+                break;
+            }
+        }
+        
+        return phrase;
+    }
 }
