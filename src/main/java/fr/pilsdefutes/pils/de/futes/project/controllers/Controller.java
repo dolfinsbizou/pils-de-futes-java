@@ -24,6 +24,7 @@ public class Controller
         private int nbLignes, nbCol;
         private String configCave;
         private int nbManutentionnaires, ordre;
+        private ArrayList<Manutentionnaire> joueurs;
 
 	public Controller(String hote, int port)
         {
