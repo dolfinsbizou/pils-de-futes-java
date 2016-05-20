@@ -25,7 +25,8 @@ public class Cave {
         this.configCave = configCave;
         
         int j=0;
-        //Boucle de parcours de la chaine récupérée
+        
+        //Boucle de parcours de la chaine récupérée et initialisation du tableau de salle
         for(int i=0; i<configCave.length(); i++)
         {
             if (i == nbLines)
@@ -45,6 +46,9 @@ public class Cave {
                 sallesList.add(new Salle(i,j,false, valInt));
             }
         }
+        
+        //Récupération de la Salle de l'Escalier
+        
     }
 
     
