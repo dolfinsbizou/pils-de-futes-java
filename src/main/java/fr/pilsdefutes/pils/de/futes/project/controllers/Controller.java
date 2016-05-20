@@ -54,9 +54,9 @@ public class Controller {
 
         //Initialisation modèles TODO
         Cave cave;
-
         while (true) {
             for (int i = 0; i < ordre - 1; i++) {
+
                 tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
             }
             //PHASE TRAITEMENT
@@ -122,6 +122,7 @@ public class Controller {
         int i = 0;
         int j = 0;
         boolean continuer = true;
+
         while (continuer) {
             int xM = m.getX() - n;
             int yM = m.getY() - n;

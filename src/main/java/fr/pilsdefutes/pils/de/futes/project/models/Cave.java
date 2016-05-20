@@ -60,7 +60,6 @@ public class Cave {
         return sallesList;
     }
     
-    
     //Test pour savoir si une Salle existe
     public boolean isSalleAtXY(int x, int y)
     {
