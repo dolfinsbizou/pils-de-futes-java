@@ -21,8 +21,18 @@ public class Manutentionnaire {
     private int couleur; // 1 : Rouge, 2 : Blanc, 3 : Rosé
     private boolean enRetour; // Booleen pour savoir s'il revient vers le stock ou pas
     private ArrayList<String> historique; // Historique du manutentionnaire : PPOOPPO PPOENNEE
-
+    private int nbRestants;
+    
     // Accesseurs
+        public int getNbRestants() {
+        return nbRestants;
+    }
+
+    public void setNbRestants(int nbRestants) {
+        this.nbRestants = nbRestants;
+    }
+
+    
     public int getX() {
         return x;
     }
@@ -88,7 +98,7 @@ public class Manutentionnaire {
      * @param nom : Nom du manutentionnaire
      * @param couleur : Couleur de l'équipe ( 1 : Rouge, 2 : Blanc, 3 : Rosé)
      */
-    public Manutentionnaire(int x, int y, int nbBouteillesDansSac, String nom, int couleur) {
+    public Manutentionnaire(int x, int y, int nbBouteillesDansSac, String nom, int couleur, int nb) {
         this.x = x;
         this.y = y;
         this.nbBouteillesDansSac = nbBouteillesDansSac;
@@ -96,6 +106,7 @@ public class Manutentionnaire {
         this.couleur = couleur;
         this.enRetour = false;
         this.historique = new ArrayList();
+        this.nbRestants = nb;
     }
 
     // Méthodes
