@@ -55,6 +55,11 @@ public class Cave {
             }
         }
     }
+
+    public ArrayList<Salle> getSallesList() {
+        return sallesList;
+    }
+    
     
     //Test pour savoir si une Salle existe
     public boolean isSalleAtXY(int x, int y)
