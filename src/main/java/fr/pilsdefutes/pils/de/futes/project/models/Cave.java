@@ -53,6 +53,11 @@ public class Cave {
             this.escalier = sallesList.get(index);
     }
 
+    public ArrayList<Salle> getSallesList() {
+        return sallesList;
+    }
+    
+
     
     
     

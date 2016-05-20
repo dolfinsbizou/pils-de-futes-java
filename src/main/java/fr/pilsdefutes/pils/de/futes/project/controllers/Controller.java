@@ -6,6 +6,7 @@
 package fr.pilsdefutes.pils.de.futes.project.controllers;
 
 import fr.pilsdefutes.pils.de.futes.project.models.Cave;
+import fr.pilsdefutes.pils.de.futes.project.models.Manutentionnaire;
 import fr.pilsdefutes.pils.de.futes.project.models.Salle;
 import fr.pilsdefutes.pils.de.futes.project.views.TcpGrandOrdonnateur;
 import java.io.IOException;
@@ -78,4 +79,37 @@ public class Controller
 			// Qu'importe si le serveur s'est arrêté avant le client.
 		} //*/
 	}
+        
+        private ArrayList<Salle> rechercheSalle(Cave c,Manutentionnaire m){
+            ArrayList<Salle> tabSalle = new ArrayList();
+            int n = 7;
+            int i=0;
+            int j=0;
+            boolean continuer = true;
+            while(continuer)
+            {
+                int xM=m.getX()-n;
+                int yM=m.getY()-n;
+                for(i = xM;i<=xM+n;i++)
+                {
+                    for(j= yM;i<=yM+n;j++)
+                    {
+                        if(i>=0 && j>=0 && i<=nbLignes && j<=nbCol)
+                        {
+                            if(c.getSallesList().get(nbLignes*i+j).getNbEmplacements()>0)
+                            {
+                                tabSalle.add(c.getSallesList().get(nbLignes*i+j));
+                            }
+                        }
+                    }
+                }
+                if(tabSalle.isEmpty() && i!=nbCol && j!=nbLignes) // a init
+                {
+                    n=n+1;
+                }else{
+                    continuer = false;
+                }
+            }
+            return tabSalle;
+        }
 }
