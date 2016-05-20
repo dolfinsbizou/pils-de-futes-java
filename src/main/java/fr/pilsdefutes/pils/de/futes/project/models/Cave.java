@@ -33,33 +33,32 @@ public class Cave {
         int yEscalier;
         
         //Récupération de la Salle de l'Escalier
-        if( configCave.length() != 0 )
+        int index = configCave.indexOf('@');
+
+        xEscalier = index/nbCols;
+        yEscalier = index - nbCols;
+        escalier = new Salle(xEscalier, yEscalier, true, 0);
+
+        int j=0;
+
+        //Boucle de parcours de la chaine récupérée et initialisation du tableau de salle
+        for(int i=0; i<configCave.length(); i++)
         {
-            int index = configCave.indexOf('@');
-            
-                 this.escalier = sallesList.get(index);
-            xEscalier = index/nbCols;
-            yEscalier = index - nbCols;
-            escalier = new Salle(xEscalier, yEscalier, true, 0);
-
-            int j=0;
-
-            //Boucle de parcours de la chaine récupérée et initialisation du tableau de salle
-            for(int i=0; i<configCave.length(); i++)
+            if (i == nbLines)
             {
-                if (i == nbLines)
-                {
-                    i=0;
-                    j++;
-                }
+                i=0;
+                j++;
+            }
 
-                if (configCave.charAt(i) == '@')
-                    sallesList.add(escalier);
-                else
-                {
-                    int valInt = Character.getNumericValue(configCave.charAt(i));
-                    sallesList.add(new Salle(i,j,false, valInt, xEscalier, yEscalier));
-                }
+            if (configCave.charAt(i) == '@')
+            {
+                sallesList.add(escalier);
+                this.escalier = sallesList.get(index);
+            }
+            else
+            {
+                int valInt = Character.getNumericValue(configCave.charAt(i));
+                sallesList.add(new Salle(i,j,false, valInt, xEscalier, yEscalier));
             }
         }
     }
