@@ -11,15 +11,15 @@ package fr.pilsdefutes.pils.de.futes.project.controllers;
  */
 public class CoupTheorique
 {
-    public boolean viable;
     public int valeurMax, valeurAct;
     public String phrase;
     
-    public CoupTheorique(boolean viable, int valeurMax, int valeurAct, String phrase)
+    public CoupTheorique(int valeurMax, int valeurAct, String phrase)
     {
-        this.viable = viable;
         this.valeurMax = valeurMax;
         this.valeurAct = valeurAct;
         this.phrase = phrase;
     }
+    
+    
 }
