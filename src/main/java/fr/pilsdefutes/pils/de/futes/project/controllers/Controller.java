@@ -55,13 +55,13 @@ public class Controller {
 
         cave = new Cave(nbLignes, nbCol, configCave);
         for (int i = 0; i < ordre - 1; i++) {
-            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1));
+            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1, 7));
         }
         
-        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre));
+        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre, 7));
         
         for (int i = 0; i < nbManutentionnaires - ordre; i++) {
-                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i));
+                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i, 7));
             }
         
         //Initialisation modèles TODO
@@ -84,6 +84,9 @@ public class Controller {
                 String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
                 miseAJourSalles(p, joueurs.get(i+ordre));
             }
+            
+            for(int i = 0 ; i < nbManutentionnaires ; i++)
+                joueurs.get(i).setNbRestants(7);
         }
 
         /*
