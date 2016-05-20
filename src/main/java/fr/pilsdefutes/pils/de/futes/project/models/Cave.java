@@ -18,6 +18,11 @@ public class Cave {
     private ArrayList<Salle> sallesList = new ArrayList(); 
     private Salle escalier;
 
+    public Salle getEscalier()
+    {
+        return escalier;
+    }
+
     public Cave(int nbLines, int nbCols, String configCave) 
     {
         this.nbLines = nbLines;
