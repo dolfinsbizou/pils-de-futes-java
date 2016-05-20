@@ -84,6 +84,9 @@ public class Controller {
                 String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
                 miseAJourSalles(p, joueurs.get(i+ordre));
             }
+            
+            for(int i = 0 ; i < nbManutentionnaires ; i++)
+                joueurs.get(i).setNbRestants(7);
         }
 
         /*
