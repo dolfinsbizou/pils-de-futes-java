@@ -5,6 +5,8 @@
  */
 package fr.pilsdefutes.pils.de.futes.project.controllers;
 
+import fr.pilsdefutes.pils.de.futes.project.models.Cave;
+import fr.pilsdefutes.pils.de.futes.project.models.Salle;
 import fr.pilsdefutes.pils.de.futes.project.views.TcpGrandOrdonnateur;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class Controller
                     //PHASE TRAITEMENT
                     String phraseDeJeu = "";
                     
-                    ArrayList<Salle> sallesPotentielles = rechercheSalle(cave);
+                    //ArrayList<Salle> sallesPotentielles = rechercheSalle(cave);
                     
                     tcpGdOrdo.envoiChaine(phraseDeJeu);
                     
