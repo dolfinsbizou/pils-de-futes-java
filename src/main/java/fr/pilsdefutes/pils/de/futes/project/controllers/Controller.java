@@ -330,20 +330,24 @@ public class Controller {
     
     private String meilleurCoup(ArrayList<CoupTheorique> coups){
         CoupTheorique Mcoup = coups.get(1);
-            for(CoupTheorique coup : coups)
+        
+        if (coups.isEmpty())
+            return "I";
+        
+        for(CoupTheorique coup : coups)
+        {
+            if(coup.valeurAct> Mcoup.valeurAct)
             {
-                if(coup.valeurAct> Mcoup.valeurAct)
+                Mcoup = coup;
+            }
+            if(coup.valeurAct == Mcoup.valeurMax)
+            {
+                if(coup.valeurMax>Mcoup.valeurMax)
                 {
                     Mcoup = coup;
                 }
-                if(coup.valeurAct == Mcoup.valeurMax)
-                {
-                    if(coup.valeurMax>Mcoup.valeurMax)
-                    {
-                        Mcoup = coup;
-                    }
-                }
             }
-            return Mcoup.phrase;
+        }
+        return Mcoup.phrase;
     }
 }
