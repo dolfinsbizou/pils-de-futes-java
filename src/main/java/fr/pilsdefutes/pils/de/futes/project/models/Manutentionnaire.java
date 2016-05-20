@@ -20,18 +20,19 @@ public class Manutentionnaire {
     private String nom; // Nom du manutentionnaire
     private int couleur; // 1 : Rouge, 2 : Blanc, 3 : Rosé
     private int nbRestants;
-
-    public int getNbRestants() {
+    private boolean enRetour; // Booleen pour savoir s'il revient vers le stock ou pas
+    private ArrayList<String> historique; // Historique du manutentionnaire : PPOOPPO PPOENNEE
+        
+    // Accesseurs
+        public int getNbRestants() {
         return nbRestants;
     }
 
     public void setNbRestants(int nbRestants) {
         this.nbRestants = nbRestants;
     }
-    private boolean enRetour; // Booleen pour savoir s'il revient vers le stock ou pas
-    private ArrayList<String> historique; // Historique du manutentionnaire : PPOOPPO PPOENNEE
 
-    // Accesseurs
+    
     public int getX() {
         return x;
     }

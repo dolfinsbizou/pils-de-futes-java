@@ -55,13 +55,13 @@ public class Controller {
 
         cave = new Cave(nbLignes, nbCol, configCave);
         for (int i = 0; i < ordre - 1; i++) {
-            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1));
+            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1, 7));
         }
         
-        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre));
+        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre, 7));
         
         for (int i = 0; i < nbManutentionnaires - ordre; i++) {
-                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i));
+                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i, 7));
             }
         
         //Initialisation modèles TODO
