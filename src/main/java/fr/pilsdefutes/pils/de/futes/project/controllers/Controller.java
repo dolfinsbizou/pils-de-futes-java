@@ -36,6 +36,7 @@ public class Controller {
     }
 
     public void scenario() throws IOException {
+
         tcpGdOrdo.connexion(hote, port);
 
         tcpGdOrdo.envoiChaine("Pils de futes");
