@@ -155,6 +155,8 @@ public class Manutentionnaire {
      */
     public void actionP() {
         this.nbBouteillesDansSac--;
+        if (nbBouteillesDansSac == 0)
+            enRetour = true;
     }
 
     /**
@@ -162,6 +164,7 @@ public class Manutentionnaire {
      */
     public void actionR() {
         this.nbBouteillesDansSac++;
+        enRetour = false;   
     }
 
     /**

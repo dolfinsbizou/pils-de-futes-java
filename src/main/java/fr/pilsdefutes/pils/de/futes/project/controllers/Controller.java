@@ -73,7 +73,16 @@ public class Controller {
             }
             //PHASE TRAITEMENT
             String phraseDeJeu = "";
-
+            
+            if(joueurs.get(ordre).isEnRetour())
+                phraseDeJeu = retourALEscalier(joueurs.get(ordre));
+            else
+            {
+                ArrayList<Salle> sallesPotentielles = rechercheSalle(cave, joueurs.get(ordre));
+                ArrayList<CoupTheorique> coupsPotentiels = coupPossible(joueurs.get(ordre), sallesPotentielles);
+                phraseDeJeu = meilleurCoup(coupsPotentiels);
+            }
+            
             for (char action : phraseDeJeu.toCharArray()) {
                 tcpGdOrdo.envoiCaractere(action);
             }
@@ -330,20 +339,87 @@ public class Controller {
     
     private String meilleurCoup(ArrayList<CoupTheorique> coups){
         CoupTheorique Mcoup = coups.get(1);
-            for(CoupTheorique coup : coups)
+        
+        if (coups.isEmpty())
+            return "I";
+        
+        for(CoupTheorique coup : coups)
+        {
+            if(coup.valeurAct> Mcoup.valeurAct)
             {
-                if(coup.valeurAct> Mcoup.valeurAct)
+                Mcoup = coup;
+            }
+            if(coup.valeurAct == Mcoup.valeurMax)
+            {
+                if(coup.valeurMax>Mcoup.valeurMax)
                 {
                     Mcoup = coup;
                 }
-                if(coup.valeurAct == Mcoup.valeurMax)
-                {
-                    if(coup.valeurMax>Mcoup.valeurMax)
-                    {
-                        Mcoup = coup;
-                    }
-                }
             }
-            return Mcoup.phrase;
+        }
+        return Mcoup.phrase;
+    }
+    
+    private String retourALEscalier(Manutentionnaire m)
+    {
+        int c = 7;
+        String phrase="";
+        
+        int i = m.getX(), j = m.getY();
+        
+        while(c>7)
+        {
+            int nouvI = i, nouvJ = j;
+            int distActuelle = cave.getSalleAtXY(i, j).getDistanceEscalier();
+            for(int k = -1 ; k <= 1 ; k++)
+                for(int l = -1 ; l <= 1 ; l++)
+                {
+                    if(cave.isSalleAtXY(i+k, j+l))
+                        if(cave.getSalleAtXY(i+k, j+l).getDistanceEscalier() < distActuelle)
+                        {
+                            nouvI = i+k;
+                            nouvJ = j+l;
+                        }
+                }
+            
+            if(nouvI < i)
+            {
+                phrase+='O';
+                c--;
+            }
+            else if(nouvI > i)
+            {
+                phrase+='E';
+                c--;
+            }
+            
+            if(nouvJ < j)
+            {
+                if(c>0) phrase+='N';
+                c--;
+            }
+            else if(nouvJ > j)
+            {
+                if(c>0) phrase+='S';
+                c--;
+            }
+            
+            i = nouvI;
+            j = nouvJ;
+            
+            if(cave.getSalleAtXY(i, j).getDistanceEscalier() == 0)
+            {
+                while(m.getNbBouteillesDansSac() < 10 && c>0)
+                {
+                    phrase+='R';
+                    c--;
+                }
+                if(m.getNbBouteillesDansSac() == 10)
+                    m.setEnRetour(false);
+                break;
+            }
+        }
+        
+        return phrase;
     }
 }
