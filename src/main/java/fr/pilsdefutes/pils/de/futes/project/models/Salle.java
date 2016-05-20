@@ -25,7 +25,20 @@ public class Salle {
         this.y = y;
         this.escalier = escalier;
         this.nbEmplacements = nbEmplacements;
+        this.distanceManutentionnaire = 0;
+        this.distanceEscalier = 0;
     }
+    
+    public Salle(int x, int y, boolean escalier, int nbEmplacements, int xEscalier, int yEscalier) 
+    {
+        this.x = x;
+        this.y = y;
+        this.escalier = escalier;
+        this.nbEmplacements = nbEmplacements;
+        this.distanceManutentionnaire = 0;
+        this.distanceEscalier = Math.abs(x - xEscalier) + Math.abs(y - yEscalier);
+    }
+    
 
     public int getX() { return x; } 
     public void setX(int x) { this.x = x; }
