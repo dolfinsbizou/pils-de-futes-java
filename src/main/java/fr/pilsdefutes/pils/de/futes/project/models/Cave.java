@@ -48,7 +48,9 @@ public class Cave {
         }
         
         //Récupération de la Salle de l'Escalier
-        
+        int index = configCave.indexOf('@');
+        if(index != -1)
+            this.escalier = sallesList.get(index);
     }
 
     
