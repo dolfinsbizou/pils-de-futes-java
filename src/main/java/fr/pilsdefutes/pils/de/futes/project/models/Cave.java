@@ -24,6 +24,16 @@ public class Cave {
         this.nbCols = nbCols;
         this.configCave = configCave;
         
+        //Récupération de la Salle de l'Escalier
+        int index = configCave.indexOf('@');
+            if(index != -1)
+            {
+                this.escalier = sallesList.get(index);
+                int xEscalier = index/nbCols;
+                int yEscalier = index - nbCols;
+                escalier = new Salle(xEscalier, yEscalier, true, 0);
+            }
+            
         int j=0;
         
         //Boucle de parcours de la chaine récupérée et initialisation du tableau de salle
@@ -36,25 +46,36 @@ public class Cave {
             }
             
             if (configCave.charAt(i) == '@')
-            {
-                sallesList.add(new Salle(i, j, true, 0));
-                escalier = sallesList.get(nbLines*i + j);
-            }
+                sallesList.add(escalier);
             else
             {
                 int valInt = Character.getNumericValue(configCave.charAt(i));
                 sallesList.add(new Salle(i,j,false, valInt));
             }
         }
-        
-        //Récupération de la Salle de l'Escalier
-        int index = configCave.indexOf('@');
-        if(index != -1)
-            this.escalier = sallesList.get(index);
     }
-
     
+    //Test pour savoir si une Salle existe
+    public boolean isSalleAtXY(int x, int y)
+    {
+        if (x > nbCols || x < 0 || y < 0 || y > nbLines)
+            return false;
+        else
+            return true;
+    }
     
+    //Test pour savoir si une Salle est l'escalier
+    public boolean isEscalier(int x, int y)
+    {
+        if (x == escalier.getX() && y == escalier.getY())
+            return true;
+        else
+            return false;
+    }
     
-
+    //Methode qui renvoie la salle aux coordonnées données
+    public Salle getSalleAtXY(int x, int y)
+    {
+        return sallesList.get(x*nbLines + y);
+    }
 }
