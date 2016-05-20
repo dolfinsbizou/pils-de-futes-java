@@ -6,6 +6,7 @@
 package fr.pilsdefutes.pils.de.futes.project.controllers;
 
 import fr.pilsdefutes.pils.de.futes.project.models.Cave;
+import fr.pilsdefutes.pils.de.futes.project.models.Manutentionnaire;
 import fr.pilsdefutes.pils.de.futes.project.models.Salle;
 import fr.pilsdefutes.pils.de.futes.project.views.TcpGrandOrdonnateur;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Controller
         private int nbLignes, nbCol;
         private String configCave;
         private int nbManutentionnaires, ordre;
+        private ArrayList<Manutentionnaire> joueurs;
 
 	public Controller(String hote, int port)
         {
