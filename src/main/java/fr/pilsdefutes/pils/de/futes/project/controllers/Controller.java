@@ -288,10 +288,14 @@ public class Controller {
                 for (String tmp2 : phraseTmp)
                     phrase += tmp2;
                 
-                int nbPose = minimumTernaire(nbMouvements, tmp.getNbEmplacements(), man.getNbBouteillesDansSac());
+                int nbPose = minimumTernaire((7-nbMouvements), tmp.getNbEmplacements(), man.getNbBouteillesDansSac());
                 
                 for (int i=0; i< nbPose; i++)
                     phrase += "P";
+                
+                //Test du nombre de mouvement effectué
+                if(nbPose + (7- nbMouvements) < 7)
+                    phrase += "I";
                 
                 listeCoupTh.add(new CoupTheorique(valeurMax, valeurMax, phrase));
             }
