@@ -95,36 +95,54 @@ public class Controller {
                         continuer = false;
                         break;
                     case 'N':
+                        // S'il peut aller vers le nord, il y va
                         if (cave.isSalleAtXY(m.getX(), m.getY() - 1)) {
-                            m.setY( m.getY() - 1 );
+                            m.setY(m.getY() - 1);
                         }
-                        
+
                         break;
-                        
+
                     case 'S':
+                        // S'il peut aller vers le sud, il y va
                         if (cave.isSalleAtXY(m.getX(), m.getY() + 1)) {
-                            m.setY( m.getY() + 1 );
+                            m.setY(m.getY() + 1);
                         }
-                        
+
                         break;
-                        
+
                     case 'E':
+                        // S'il peut aller vers l'est, il y va
                         if (cave.isSalleAtXY(m.getX() + 1, m.getY())) {
-                            m.setX( m.getX() + 1 );
+                            m.setX(m.getX() + 1);
                         }
-                        
+
                         break;
-                        
+
                     case 'O':
+                        // S'il peut aller vers l'ouest, il y va
                         if (cave.isSalleAtXY(m.getX() - 1, m.getY())) {
-                            m.setX( m.getX() - 1 );
+                            m.setX(m.getX() - 1);
                         }
-                        
+
                         break;
-                        
+
                     case 'R':
+                        // S'il est à l'escalier et qu'il a de la place, il prend une bouteille
+                        if (cave.isEscalier(m.getX(), m.getY()) && m.getNbBouteillesDansSac() < 10) {
+                            m.setNbBouteillesDansSac(m.getNbBouteillesDansSac() + 1);
+                        }
+
                         break;
+
                     case 'P':
+                        // S'il n'est pas à l'escalier, s'il a assez de bouteilles et si la salle a des emplacements dispos, alors il peut poser une bouteille
+                        if (m.getNbBouteillesDansSac() > 0 && !cave.isEscalier(m.getX(), m.getY()) && cave.getSalleAtXY(m.getX(), m.getY()).getNbEmplacements() > 0) {
+                            m.setNbBouteillesDansSac(m.getNbBouteillesDansSac() - 1);
+
+                            Salle s = cave.getSalleAtXY(m.getX(), m.getY());
+                            s.setNbEmplacements(s.getNbEmplacements() - 1);
+                        }
+
                         break;
                 }
             }
