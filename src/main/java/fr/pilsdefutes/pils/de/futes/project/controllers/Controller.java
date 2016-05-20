@@ -55,19 +55,19 @@ public class Controller {
 
         cave = new Cave(nbLignes, nbCol, configCave);
         for (int i = 0; i < ordre - 1; i++) {
-            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1));
+            joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", i+1, 7));
         }
         
-        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre));
+        joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre, 7));
         
         for (int i = 0; i < nbManutentionnaires - ordre; i++) {
-                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i));
+                joueurs.add(new Manutentionnaire(cave.getEscalier().getX(), cave.getEscalier().getY(), 10, "machin", ordre+1+i, 7));
             }
-        
+
         //Initialisation modèles TODO
         while (true) {
             for (int i = 0; i < ordre - 1; i++) {
-       
+
                 String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
                 miseAJourSalles(p, joueurs.get(i));
             }
@@ -75,15 +75,17 @@ public class Controller {
             String phraseDeJeu = "";
 
             for (char action : phraseDeJeu.toCharArray()) {
-			tcpGdOrdo.envoiCaractere(action);
-		}
+                tcpGdOrdo.envoiCaractere(action);
+            }
             miseAJourSalles(phraseDeJeu, joueurs.get(ordre));
-
 
             for (int i = 0; i < nbManutentionnaires - ordre; i++) {
                 String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
-                miseAJourSalles(p, joueurs.get(i+ordre));
+                miseAJourSalles(p, joueurs.get(i + ordre));
             }
+            
+            for(int i = 0 ; i < nbManutentionnaires ; i++)
+                joueurs.get(i).setNbRestants(7);
         }
 
         /*
@@ -196,5 +198,54 @@ public class Controller {
             }
         }
         return tabSalle;
+    }
+
+    public ArrayList <String> calculDeplacement(Manutentionnaire manu, Salle salleCible) {
+        int i, depH, depV, depT;
+        String DH, DV;
+        ArrayList <String> tabDepl = new ArrayList() ;
+        depH = salleCible.getX() - manu.getX();
+        depV = salleCible.getY() - manu.getY();
+        depT = Math.abs(depH) + Math.abs(depV);
+
+        DH = String.valueOf('O');
+        DV = String.valueOf('S');
+
+        depT = Math.max(depT, manu.getNbRestants());
+        if (depT >= 7) {
+            tabDepl.add(String.valueOf(7));
+        } else {
+            tabDepl.add(String.valueOf(depT));
+        }
+        if (depT != 0) {
+            if (depH > 0) {
+                DH = String.valueOf('E');
+            }
+            if (depV > 0) {
+                DV = String.valueOf('N');
+            }
+
+            if (Math.abs(depH) >= depT) {
+                for (i = 1; i <= depT; i++) {
+                    tabDepl.add(DH);
+                }
+            } else {
+                for (i = 1; i <= Math.abs(depH); i++) {
+                    tabDepl.add(DH);
+                }
+                if (Math.abs(depV) >= manu.getNbRestants() - Math.abs(depH)) {
+                    for (i = Math.abs(depH) + 1; i <= manu.getNbRestants(); i++) {
+                        tabDepl.add(DV);
+                    }
+                } else {
+                    for (i = Math.abs(depH) + 1; i <= Math.abs(depH) + Math.abs(depV); i++) {
+                        tabDepl.add(DV);
+                    }
+                }
+
+            }
+        }
+
+        return tabDepl;
     }
 }
