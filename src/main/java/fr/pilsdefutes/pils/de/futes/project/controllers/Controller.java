@@ -197,4 +197,78 @@ public class Controller {
         }
         return tabSalle;
     }
+    
+    public ArrayList<CoupTheorique> coupPossible (Manutentionnaire man, ArrayList<Salle> tabSalle)
+    {
+        int valeurActuelle=0, actionActuelle=0;
+        int valeurMax=0, actionMax = 0;
+        int perteMax=0, perteActuelle=0;
+        
+        ArrayList<CoupTheorique> listeCoupTh = new ArrayList();
+        
+        for (Salle tmp : tabSalle)
+        {
+            valeurActuelle = 4*(tmp.getDistanceEscalier()+1) * man.getNbBouteillesDansSac();
+            valeurMax = 4*(tmp.getDistanceEscalier()+1) * 10;
+            
+            if (tmp.getDistanceManutentionnaire() > 0)
+            {
+                actionMax = tmp.getDistanceManutentionnaire();
+                actionActuelle = actionMax;
+            }
+            
+            actionMax += maximum(tmp.getNbEmplacements(), man.getNbBouteillesDansSac());
+            actionActuelle += minimum(tmp.getNbEmplacements(), man.getNbBouteillesDansSac());
+            
+            perteMax = actionMax + (actionMax/7) + 1;
+            perteActuelle = actionActuelle + (actionActuelle/7) + 1;
+            
+            valeurMax -= perteMax;
+            valeurActuelle -= perteActuelle;
+            
+            if (valeurMax > 0 || valeurActuelle > 0)
+            {
+                ArrayList<String> phraseTmp = calculDeplacement(tmp, man);
+                String phrase = "";
+                
+                int nbMouvements = Integer.parseInt(phraseTmp.get(0));
+                
+                phraseTmp.remove(0);
+                for (String tmp2 : phraseTmp)
+                    phrase += tmp2;
+                
+                int nbPose = minimumTernaire(nbMouvements, tmp.getNbEmplacements(), man.getNbBouteillesDansSac());
+                
+                for (int i=0; i< nbPose; i++)
+                    phrase += "P";
+                
+                listeCoupTh.add(new CoupTheorique(valeurMax, valeurMax, phrase));
+            }
+        }
+        return listeCoupTh;
+    }
+        
+    int maximum(int a, int b)
+    {
+        if (a<b)
+            return b;
+        else
+            return a;
+    }
+    
+    int minimum(int a, int b)
+    {
+        if (a>b)
+            return b;
+        else
+            return a;
+    }
+    
+    int minimumTernaire(int a, int b, int c)
+    {
+        if (a < minimum(b,c))
+            return a;
+        else
+            return (minimum(b,c));
+    }
 }
