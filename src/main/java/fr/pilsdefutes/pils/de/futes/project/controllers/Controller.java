@@ -326,4 +326,24 @@ public class Controller {
         else
             return (minimum(b,c));
     }
+    
+    
+    private String meilleurCoup(ArrayList<CoupTheorique> coups){
+        CoupTheorique Mcoup = coups.get(1);
+            for(CoupTheorique coup : coups)
+            {
+                if(coup.valeurAct> Mcoup.valeurAct)
+                {
+                    Mcoup = coup;
+                }
+                if(coup.valeurAct == Mcoup.valeurMax)
+                {
+                    if(coup.valeurMax>Mcoup.valeurMax)
+                    {
+                        Mcoup = coup;
+                    }
+                }
+            }
+            return Mcoup.phrase;
+    }
 }
