@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 public class Controller {
 
     private String hote = null;
+    private Cave cave;
     private int port = -1;
     private TcpGrandOrdonnateur tcpGdOrdo = null;
     private int nbLignes, nbCol;
@@ -53,7 +54,6 @@ public class Controller {
         ordre = tcpGdOrdo.receptionEntier();
 
         //Initialisation modèles TODO
-        Cave cave;
         while (true) {
             for (int i = 0; i < ordre - 1; i++) {
 
@@ -95,14 +95,33 @@ public class Controller {
                         continuer = false;
                         break;
                     case 'N':
-
+                        if (cave.isSalleAtXY(m.getX(), m.getY() - 1)) {
+                            m.setY( m.getY() - 1 );
+                        }
+                        
                         break;
+                        
                     case 'S':
+                        if (cave.isSalleAtXY(m.getX(), m.getY() + 1)) {
+                            m.setY( m.getY() + 1 );
+                        }
+                        
                         break;
+                        
                     case 'E':
+                        if (cave.isSalleAtXY(m.getX() + 1, m.getY())) {
+                            m.setX( m.getX() + 1 );
+                        }
+                        
                         break;
+                        
                     case 'O':
+                        if (cave.isSalleAtXY(m.getX() - 1, m.getY())) {
+                            m.setX( m.getX() - 1 );
+                        }
+                        
                         break;
+                        
                     case 'R':
                         break;
                     case 'P':
