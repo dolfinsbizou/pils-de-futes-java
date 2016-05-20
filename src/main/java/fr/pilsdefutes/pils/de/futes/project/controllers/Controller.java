@@ -73,7 +73,16 @@ public class Controller {
             }
             //PHASE TRAITEMENT
             String phraseDeJeu = "";
-
+            
+            if(joueurs.get(ordre).isEnRetour())
+                phraseDeJeu = retourALEscalier(joueurs.get(ordre));
+            else
+            {
+                ArrayList<Salle> sallesPotentielles = rechercheSalle(cave, joueurs.get(ordre));
+                ArrayList<CoupTheorique> coupsPotentiels = coupPossible(joueurs.get(ordre), sallesPotentielles);
+                phraseDeJeu = meilleurCoup(coupsPotentiels);
+            }
+            
             for (char action : phraseDeJeu.toCharArray()) {
                 tcpGdOrdo.envoiCaractere(action);
             }
@@ -401,6 +410,8 @@ public class Controller {
                     phrase+='R';
                     c--;
                 }
+                if(m.getNbBouteillesDansSac() == 10)
+                    m.setEnRetour(false);
                 break;
             }
         }
