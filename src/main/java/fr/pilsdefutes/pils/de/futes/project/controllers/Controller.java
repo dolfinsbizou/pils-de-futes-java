@@ -67,8 +67,9 @@ public class Controller {
         //Initialisation modèles TODO
         while (true) {
             for (int i = 0; i < ordre - 1; i++) {
-
-                tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
+       
+                String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
+                miseAJourSalles(p, joueurs.get(i));
             }
             //PHASE TRAITEMENT
             String phraseDeJeu = "";
@@ -76,9 +77,12 @@ public class Controller {
             for (char action : phraseDeJeu.toCharArray()) {
 			tcpGdOrdo.envoiCaractere(action);
 		}
+            miseAJourSalles(phraseDeJeu, joueurs.get(ordre));
+
 
             for (int i = 0; i < nbManutentionnaires - ordre; i++) {
-                tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
+                String p = tcpGdOrdo.receptionChaine(); //TODO envoyer le résultat
+                miseAJourSalles(p, joueurs.get(i+ordre));
             }
         }
 
