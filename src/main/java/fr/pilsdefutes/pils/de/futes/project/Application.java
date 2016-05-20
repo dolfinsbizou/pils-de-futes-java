@@ -5,7 +5,6 @@
  */
 package fr.pilsdefutes.pils.de.futes.project;
 
-import fr.pilsdefutes.pils.de.futes.project.models.Manutentionnaire;
 
 /**
  *
@@ -14,12 +13,5 @@ import fr.pilsdefutes.pils.de.futes.project.models.Manutentionnaire;
 public class Application {
     public static void main(String[] argv)
     {
-        System.out.println("Hello World !");
-        Manutentionnaire manutentionnaire = new Manutentionnaire(0,0, 10, "Michel", 2);
-        
-        manutentionnaire.ajouterPhraseHistorique("EEOPPNE");
-        manutentionnaire.ajouterPhraseHistorique("OPPELXX");
-        System.out.println(manutentionnaire);
-        
     }
 }
