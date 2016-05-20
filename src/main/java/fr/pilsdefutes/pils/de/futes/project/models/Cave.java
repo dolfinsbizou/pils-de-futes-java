@@ -18,21 +18,27 @@ public class Cave {
     private ArrayList<Salle> sallesList = new ArrayList(); 
     private Salle escalier;
 
+    public Salle getEscalier()
+    {
+        return escalier;
+    }
+
     public Cave(int nbLines, int nbCols, String configCave) 
     {
         this.nbLines = nbLines;
         this.nbCols = nbCols;
         this.configCave = configCave;
         
+        int xEscalier;
+        int yEscalier;
+        
         //Récupération de la Salle de l'Escalier
         int index = configCave.indexOf('@');
-            if(index != -1)
-            {
-                this.escalier = sallesList.get(index);
-                int xEscalier = index/nbCols;
-                int yEscalier = index - nbCols;
-                escalier = new Salle(xEscalier, yEscalier, true, 0);
-            }
+    
+        this.escalier = sallesList.get(index);
+        xEscalier = index/nbCols;
+        yEscalier = index - nbCols;
+        escalier = new Salle(xEscalier, yEscalier, true, 0);
             
         int j=0;
         
@@ -50,9 +56,13 @@ public class Cave {
             else
             {
                 int valInt = Character.getNumericValue(configCave.charAt(i));
-                sallesList.add(new Salle(i,j,false, valInt));
+                sallesList.add(new Salle(i,j,false, valInt, xEscalier, yEscalier));
             }
         }
+    }
+
+    public ArrayList<Salle> getSallesList() {
+        return sallesList;
     }
     
     //Test pour savoir si une Salle existe
